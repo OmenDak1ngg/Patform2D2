@@ -9,7 +9,7 @@ public class Collector : MonoBehaviour
         if (other.TryGetComponent(out Coin coin))
         {
             _wallet.AddCoin();
-            coin.TriggerActionTaked();
+            coin.Interract();
         }
     }
 }

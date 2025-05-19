@@ -1,0 +1,4 @@
+interface Iinterractable 
+{
+    void Interract();
+}

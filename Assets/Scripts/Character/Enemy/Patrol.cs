@@ -1,31 +1,37 @@
-using System.Runtime.CompilerServices;
+using System;
 using UnityEngine;
 
 public class Patrol : MonoBehaviour
 {
-    [SerializeField] private Target[] _targets;
+    [SerializeField] private Waypoints[] _waypoints;
     [SerializeField] private EnemyMover _enemyMover;
 
-    private int _currentTargetIndex;
+    private int _currentWaypointIndex;
 
-    private void Start()
+    private void OnEnable()
     {
-        _currentTargetIndex = 0;
-        _enemyMover.SetNewTarget(GetTarget());
+        _enemyMover.ReachedWaypoint += SetNextWaypoint;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (_enemyMover.IsReachedTarget())
-        {
-            StartCoroutine(_enemyMover.Rest());
-            _currentTargetIndex = ++_currentTargetIndex % _targets.Length;
-            _enemyMover.SetNewTarget(GetTarget());
-        }
+        _enemyMover.ReachedWaypoint -= SetNextWaypoint;
     }
 
-    private Target GetTarget()
+    private void Awake()
     {
-        return _targets[_currentTargetIndex];
+        _currentWaypointIndex = 0;
+        _enemyMover.SetNewWaypoint(GetWaypoint());
+    }
+
+    private void SetNextWaypoint()
+    {
+        _currentWaypointIndex = ++_currentWaypointIndex % _waypoints.Length;
+        _enemyMover.SetNewWaypoint(GetWaypoint());
+    }
+
+    private Waypoints GetWaypoint()
+    {
+        return _waypoints[_currentWaypointIndex];
     }
 }

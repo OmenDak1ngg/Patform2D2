@@ -1,8 +1,11 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Pool;
-using System.Collections.Generic;
 
 public class SpawnpointCoin : MonoBehaviour
 {
+    [SerializeField] private int _layerMaskIndex;
+
+    private void Start()
+    {
+        gameObject.layer = _layerMaskIndex;
+    }
 }
