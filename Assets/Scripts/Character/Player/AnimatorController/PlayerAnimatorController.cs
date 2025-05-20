@@ -1,9 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class AnimatorController : MonoBehaviour
+public class PlayerAnimatorController : MonoBehaviour
 {
     private readonly string ParameterIsRunning = "IsRunning";
+    private readonly string ParameterAttacked = "Attacked";
+    private readonly string ParameterKilled = "Killed";
 
     private Animator _animator;
 
@@ -17,4 +19,15 @@ public class AnimatorController : MonoBehaviour
     {
         _animator.SetBool(ParameterIsRunning, isRunnning);
     }
+
+    public void AttackAnimation()
+    {
+        _animator.SetTrigger(ParameterAttacked);
+    }
+
+    public void KilledAnimation()
+    {
+        _animator.SetTrigger(ParameterKilled);
+    }
+
 }

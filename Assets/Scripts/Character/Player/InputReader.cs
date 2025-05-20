@@ -6,6 +6,8 @@ public class InputReader : MonoBehaviour
     private readonly string Horizontal = nameof(Horizontal);
 
     public event Action Jumped;
+    public event Action Attacked;
+    
     public bool IsTryedToJump { get; private set; }
     public float Direction { get; private set; }
     
@@ -16,6 +18,11 @@ public class InputReader : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
            Jumped?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Attacked?.Invoke();
         }
     }
 

@@ -1,13 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerMover _playerMover;
-    [SerializeField] private AnimatorController _animatorController;
+    [SerializeField] private PlayerAnimatorController _animatorController;
 
-    private float _threshold = 0.1f;
+    private float _threshold = 0.5f;
     private Rigidbody2D _rigidbody;
 
     private void Start()
@@ -17,11 +17,13 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        _inputReader.Attacked += Attack;
         _inputReader.Jumped += Jump;
     }
 
     private void OnDisable()
     {
+        _inputReader.Attacked += Attack;
         _inputReader.Jumped -= Jump;
     }
 
@@ -38,12 +40,26 @@ public class Player : MonoBehaviour
         _playerMover.Move(_inputReader.Direction);
 
         bool isRunning = Mathf.Abs(_rigidbody.linearVelocity.x) >= _threshold;
-        _animatorController.RunAnimation(isRunning);
-        
+        _animatorController.RunAnimation(isRunning);      
     }
 
     private void Jump()
     {
         _playerMover.Jump();
+    }
+
+    private void Attack()
+    {
+        _animatorController.AttackAnimation();
+    }
+
+    protected override void Death()
+    {
+        _animatorController.KilledAnimation();
+    }
+
+    public void OnDeath()
+    {
+        base.Death();
     }
 }
