@@ -11,7 +11,6 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("получил урон");
         _health -= damage;
 
         if (_health <= 0)

@@ -6,31 +6,47 @@ using System;
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private Patrol _patrol;
+    [SerializeField] private Patroller _patroller;
     [SerializeField] private float _threshold = 0.1f;
     [SerializeField] private float _restTime = 2f;
+    [SerializeField] private float _playerSearchTime =5f;
 
     private Rigidbody2D _rigidbody;
-    private Waypoints _currentWaypoint;
-    private float _baseSpeed;
+    private Waypoint _currentWaypoint;
     private WaitForSeconds _restDelay;
     private bool _isResting;
+
+    private bool _isSearching;
+    private WaitForSeconds _searchTime;
+    private bool _isChasing;
+    private Player _chasingPlayer;
+
+    private Coroutine _restCoroutine;
+    private Coroutine _searchCoroutine;
 
     public event Action ReachedWaypoint;
 
     private void Start()
     {
+        _isSearching = false;
+        _searchTime = new WaitForSeconds(_playerSearchTime);
+        _isChasing = false;
         _isResting = false;
         _rigidbody = GetComponent<Rigidbody2D>();
         _restDelay = new WaitForSeconds(_restTime);
-        _baseSpeed = _speed;
     }
 
     private void FixedUpdate()
     {
-        if (_isResting)
+        if (_isResting || _isSearching)
         {
             _rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (_isChasing)
+        {
+            ChasePlayer();
             return;
         }
 
@@ -41,7 +57,7 @@ public class EnemyMover : MonoBehaviour
     {
         if((transform.position - _currentWaypoint.transform.position).sqrMagnitude < _threshold)
         {
-            StartCoroutine(Rest());
+            _restCoroutine = StartCoroutine(Rest());
             ReachedWaypoint?.Invoke();
             return;
         }
@@ -61,12 +77,52 @@ public class EnemyMover : MonoBehaviour
     private IEnumerator Rest()
     {
         _isResting =  true;
+        
         yield return _restDelay;
+
         _isResting = false;    
     }
 
+    private IEnumerator SearchPlayer()
+    {
+        _isChasing = false;
 
-    public void SetNewWaypoint(Waypoints waypoint)
+        yield return _searchTime;
+
+        _isSearching = false;
+        _patroller.FindClosestWaypoint();
+    }
+
+    public void StartChasingPlayer(Player player)
+    {
+        if (_isChasing)
+            return;
+
+        if(_restCoroutine != null)  StopCoroutine(_restCoroutine);
+
+        _isSearching = false;
+        _isChasing = true;
+        _chasingPlayer = player;
+    }
+
+    private void ChasePlayer()
+    {
+        Vector2 directoin = (_chasingPlayer.transform.position - transform.position).normalized;
+        _rigidbody.linearVelocity = directoin * _speed;
+    }
+
+    public void LostPlayer()
+    {
+        if (_isChasing == false)
+            return;
+
+        if (_searchCoroutine != null) StopCoroutine(_searchCoroutine);
+
+        _isSearching = true;
+        _searchCoroutine = StartCoroutine(SearchPlayer());
+    }
+
+    public void SetNewWaypoint(Waypoint waypoint)
     {
         _currentWaypoint = waypoint;
     }

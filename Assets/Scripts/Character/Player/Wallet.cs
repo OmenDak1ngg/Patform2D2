@@ -12,6 +12,5 @@ public class Wallet : MonoBehaviour
     public void AddCoin()
     {
         _coinsCount ++;
-        Debug.Log("Подобрана монетка: всего " + _coinsCount);
     }
 }

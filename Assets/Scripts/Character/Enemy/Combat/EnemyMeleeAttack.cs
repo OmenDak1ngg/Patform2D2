@@ -10,9 +10,12 @@ public class EnemyMeleeAttack : MonoBehaviour
     {
         Collider2D collider = Physics2D.OverlapBox(transform.position, transform.localScale, 0f, _mask);
 
-        if(collider == null) 
+        if (collider == null) 
             return;
 
-        collider.GetComponent<Player>().TakeDamage(_damage);
+        if(collider.TryGetComponent(out Player player) == false)
+                return;
+
+        player.TakeDamage(_damage);
     }
 }

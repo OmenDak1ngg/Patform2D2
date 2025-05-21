@@ -5,7 +5,7 @@ public class Player : Character
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerMover _playerMover;
-    [SerializeField] private PlayerAnimatorController _animatorController;
+    [SerializeField] private PlayerAnimator _animatorController;
 
     private float _threshold = 0.5f;
     private Rigidbody2D _rigidbody;

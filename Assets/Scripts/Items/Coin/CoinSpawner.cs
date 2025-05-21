@@ -20,12 +20,12 @@ public class CoinSpawner : MonoBehaviour
     {
         _avalaibleSpawnpoints = new List<SpawnpointCoin>(_spawnpoints);
 
-        CreatePool();
+        InitializePool();
 
         SpawnCoinsAmount(_spawnpoints.Length);
     }
 
-    private void CreatePool() 
+    private void InitializePool() 
     {
         _pool = new ObjectPool<Coin>(
             createFunc: () => InstantiateCoin(),

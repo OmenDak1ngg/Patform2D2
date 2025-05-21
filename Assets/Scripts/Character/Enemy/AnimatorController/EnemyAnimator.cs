@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class EnemyAnimatorController : MonoBehaviour
+public class EnemyAnimator : MonoBehaviour
 {
     private readonly string ParameterAttacked = "Attacked";
 

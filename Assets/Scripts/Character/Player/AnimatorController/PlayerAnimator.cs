@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerAnimatorController : MonoBehaviour
+public class PlayerAnimator : MonoBehaviour
 {
     private readonly string ParameterIsRunning = "IsRunning";
     private readonly string ParameterAttacked = "Attacked";
