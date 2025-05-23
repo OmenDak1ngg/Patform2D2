@@ -13,6 +13,8 @@ public class Player : Character
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        base.Start();
     }
 
     private void OnEnable()

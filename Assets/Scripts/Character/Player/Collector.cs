@@ -3,6 +3,7 @@ using UnityEngine;
 public class Collector : MonoBehaviour
 {
     [SerializeField] private Wallet _wallet;
+    [SerializeField] private Player _player;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -10,6 +11,12 @@ public class Collector : MonoBehaviour
         {
             _wallet.AddCoin();
             coin.Interract();
+        }
+
+        if(other.TryGetComponent(out AidKit aidKit))
+        {
+            _player.Heal(aidKit.HeatlCount);
+            aidKit.Interract();
         }
     }
 }
