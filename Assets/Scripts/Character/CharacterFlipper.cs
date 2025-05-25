@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterFlipper : MonoBehaviour
 {
-    private readonly Vector2 FlippedRotation = new Vector2(0,180);
-    private readonly Vector2 BaseRotation = new Vector2(0, 0);
+    private readonly Vector2 FlippedRotation = new Vector3(0,180,0);
+    private readonly Vector2 BaseRotation = new Vector3(0, 0,0);
 
     private float _threshold = 0.01f;
     private bool _isFacingRight;
@@ -24,7 +24,8 @@ public class CharacterFlipper : MonoBehaviour
     private void Flip()
     {
         _isFacingRight = !_isFacingRight;
-        transform.rotation =  Quaternion.Euler(_isFacingRight ? BaseRotation : FlippedRotation);
+        transform.rotation = Quaternion.Euler(_isFacingRight ? BaseRotation : FlippedRotation);
+
     }
 
     public void UpdateFacingDirection()
@@ -36,7 +37,7 @@ public class CharacterFlipper : MonoBehaviour
                 Flip();
             }
         }
-
+        
         if(_rigidbody.linearVelocity.x < -_threshold)
         {
             if(_isFacingRight == true)

@@ -10,7 +10,7 @@ public class Player : Character
     private float _threshold = 0.5f;
     private Rigidbody2D _rigidbody;
 
-    private void Start()
+    protected override void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
 
