@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 433829799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.075, y: -0.713, z: 0}
+  m_LocalPosition: {x: 0.075, y: 0.54899997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 456663284}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.262, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -738,7 +738,7 @@ Transform:
   m_GameObject: {fileID: 717466469}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.188, y: -0.487, z: 0}
+  m_LocalPosition: {x: 0.188, y: 0.775, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7343,7 +7343,7 @@ GameObject:
   - component: {fileID: 1506630873}
   - component: {fileID: 1506630872}
   - component: {fileID: 1506630871}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7413,7 +7413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sizeX: 0.53
-  _sizeY: 0.8
+  _sizeY: 0.9
   _refernce: {fileID: 433829800}
   _groundMask:
     serializedVersion: 2
@@ -7467,8 +7467,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.08920646, y: -0.25531465}
-  m_Size: {x: 0.78915167, y: 1.7567159}
+  m_Offset: {x: 0.08920646, y: 1.0048257}
+  m_Size: {x: 0.78915167, y: 1.7924435}
   m_Direction: 0
 --- !u!50 &1506630868
 Rigidbody2D:
@@ -7506,7 +7506,7 @@ Transform:
   m_GameObject: {fileID: 1506630861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.19126, y: 0.18106, z: 0}
+  m_LocalPosition: {x: -6.12, y: -1.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9038,6 +9038,7 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 256
+  _attackRange: 0.5
 --- !u!114 &1833097535
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,15 +38,15 @@ public class EnemyMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isResting || _isSearching)
-        {
-            _rigidbody.linearVelocity = Vector2.zero;
-            return;
-        }
-
         if (_isChasing)
         {
             ChasePlayer();
+            return;
+        }
+
+        if (_isResting || _isSearching)
+        {
+            _rigidbody.linearVelocity = Vector2.zero;
             return;
         }
 
@@ -77,7 +77,7 @@ public class EnemyMover : MonoBehaviour
     private IEnumerator Rest()
     {
         _isResting =  true;
-        
+
         yield return _restDelay;
 
         _isResting = false;    
@@ -85,8 +85,6 @@ public class EnemyMover : MonoBehaviour
 
     private IEnumerator SearchPlayer()
     {
-        _isChasing = false;
-
         yield return _searchTime;
 
         _isSearching = false;
@@ -100,6 +98,7 @@ public class EnemyMover : MonoBehaviour
 
         if(_restCoroutine != null)  StopCoroutine(_restCoroutine);
 
+        _isResting = false;
         _isSearching = false;
         _isChasing = true;
         _chasingPlayer = player;
@@ -118,6 +117,7 @@ public class EnemyMover : MonoBehaviour
 
         if (_searchCoroutine != null) StopCoroutine(_searchCoroutine);
 
+        _isChasing = false;
         _isSearching = true;
         _searchCoroutine = StartCoroutine(SearchPlayer());
     }
